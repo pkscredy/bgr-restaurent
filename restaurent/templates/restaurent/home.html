@@ -1,0 +1,87 @@
+{% extends 'restaurent/base.html' %}
+{% load tz %}
+
+{% block style %}
+  <style>
+    .jumbotron {
+      text-align: center;
+    }
+  </style>
+{% endblock %}
+
+  {% block jumbotron %}
+
+      {% for info in res_info %}
+          <div class="jumbotron">
+
+                <form class="form-horizontal"
+                      method="post"
+                      enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                    <div class="form-group">
+                      <label for="res_url" class="col-sm-5 col-form-label">Url</label>
+                      <div class="col-sm-4">
+                          <a href="{{info.url}}" target="_blank"> Check Reataurent Page </a>
+                      </div>
+                    </div>
+                        <div class="form-group">
+                          <label for="res_name" class="col-sm-5 col-form-label">Reataurent Name</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="form-control"
+                                   readonly class="form-control-plaintext"
+                                   id="res_name"
+                                   value='{{ info.name }}'>
+                          </div>
+                        </div>
+                    <div class="form-group">
+                      <label for="res_rating" class="col-sm-5 col-form-label">Rating</label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control"
+                               readonly class="form-control-plaintext"
+                               id="res_rating"
+                               value='{{ info.rating }}'>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="res_location" class="col-sm-5 col-form-label">Location</label>
+                      <div class="col-sm-4">
+                        <textarea class="form-control"
+                                  readonly class="form-control-plaintext"
+                                  input type="text" id="res_location"
+                                  name="location"
+                                  rows="3"> {{ info.location }}</textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="res_map" class="col-sm-5 col-form-label">Get Direction on Map</label>
+                      <div class="col-sm-4">
+                        <button class="btn btn-default btn-sm" name="submit" title="map">Click Here
+                        </button>
+                      </div>
+                    </div>
+                    <input type="hidden" name="location" value="{{ info.name }}"></input>
+
+              </form>
+          </div>
+
+    {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if res_info.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ res_info.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ res_info.number }} of {{ res_info.paginator.num_pages }}.
+                </span>
+
+                {% if res_info.has_next %}
+                    <a href="?page={{ res_info.next_page_number }}">next</a>
+                    <a href="?page={{ res_info.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+{% endblock %}
