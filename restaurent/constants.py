@@ -4,7 +4,7 @@ class RestaurentConstants:
     DATA_WITH_REVIEW = '/tmp/res_with_review.csv'
 
 
-key = 'AIzaSyAD1XqJnTSlouNeEx9ltiB_tRkU_Hr5Goo'
+key = '*******************'
 SEARCH_URL = (
     'https://maps.googleapis.com/maps/api/place/textsearch/json'
     )
